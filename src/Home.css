@@ -1,0 +1,42 @@
+.home-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.split-screen {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  overflow: hidden;
+}
+
+.left-panel,
+.right-panel {
+  height: 100%;
+  overflow: hidden;
+}
+
+.left-panel {
+  border-right: 1px solid var(--border-default);
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .split-screen {
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+  }
+
+  .left-panel {
+    border-right: none;
+    border-bottom: 1px solid var(--border-default);
+  }
+}
+
+@media (max-width: 768px) {
+  .split-screen {
+    grid-template-rows: 40% 60%;
+  }
+}
