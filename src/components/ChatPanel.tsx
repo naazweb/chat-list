@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { Task } from '../hooks/useTasks';
 import './ChatPanel.css';
 
 interface Message {
@@ -8,7 +9,15 @@ interface Message {
   timestamp: Date;
 }
 
-function ChatPanel() {
+interface ChatPanelProps {
+  addTask: (title: string, options?: { priority?: Task['priority']; dueDate?: Date }) => Task;
+  updateTask: (id: string, updates: Partial<Omit<Task, 'id' | 'createdAt'>>) => void;
+  deleteTask: (id: string) => void;
+  tasks: Task[];
+}
+
+function ChatPanel({ tasks }: ChatPanelProps) {
+  // Task operations (addTask, updateTask, deleteTask) will be used for AI integration in future work
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',

@@ -1,44 +1,14 @@
 import { useState } from 'react';
+import type { Task } from '../hooks/useTasks';
 import './TaskList.css';
-
-export interface Task {
-  id: string;
-  title: string;
-  status: 'pending' | 'completed';
-  priority: 'low' | 'medium' | 'high';
-  dueDate?: Date;
-  createdAt: Date;
-}
 
 interface TaskListProps {
   title?: string;
+  tasks: Task[];
+  toggleTaskStatus: (id: string) => void;
 }
 
-function TaskList({ title = 'All Tasks' }: TaskListProps) {
-  const [tasks, setTasks] = useState<Task[]>([
-    {
-      id: '1',
-      title: 'Review project documentation',
-      status: 'pending',
-      priority: 'high',
-      dueDate: new Date(Date.now() + 86400000), // Tomorrow
-      createdAt: new Date(),
-    },
-    {
-      id: '2',
-      title: 'Update dependencies',
-      status: 'pending',
-      priority: 'medium',
-      createdAt: new Date(),
-    },
-    {
-      id: '3',
-      title: 'Write unit tests',
-      status: 'completed',
-      priority: 'high',
-      createdAt: new Date(Date.now() - 86400000), // Yesterday
-    },
-  ]);
+function TaskList({ title = 'All Tasks', tasks, toggleTaskStatus }: TaskListProps) {
 
   const [filter, setFilter] = useState<'all' | 'pending' | 'completed'>('all');
 
@@ -46,19 +16,6 @@ function TaskList({ title = 'All Tasks' }: TaskListProps) {
     if (filter === 'all') return true;
     return task.status === filter;
   });
-
-  const toggleTaskStatus = (taskId: string) => {
-    setTasks(
-      tasks.map((task) =>
-        task.id === taskId
-          ? {
-              ...task,
-              status: task.status === 'pending' ? 'completed' : 'pending',
-            }
-          : task
-      )
-    );
-  };
 
   const getPriorityColor = (priority: Task['priority']) => {
     switch (priority) {
