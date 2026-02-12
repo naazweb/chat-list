@@ -1,7 +1,6 @@
 import { createServerFn } from '@tanstack/react-start';
 import { taskService } from '../services/taskService';
 
-// Re-export types if needed by frontend
 export type { Task } from '../lib/schemas/task';
 
 export const getTasks = createServerFn({ method: "GET" }).handler(async () => {
