@@ -26,3 +26,12 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Build artifacts
+app.config.timestamp_*
+.tanstack/
+.output/
+.vinxi/
+
+# Data
+data/
